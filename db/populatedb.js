@@ -109,6 +109,7 @@ async function main() {
             defaultAlbum.genre,
             defaultAlbum.artist,
             defaultAlbum.songs,
+            defaultAlbum.cover,
         ]);
         if (parseInt(res.rows[0].count, 10) === 0) {
             await client.query(SQL_INSERT_ALBUM, [
@@ -116,6 +117,7 @@ async function main() {
                 defaultAlbum.genre,
                 defaultAlbum.artist,
                 defaultAlbum.songs,
+                defaultAlbum.cover,
             ]);
         }
     }
