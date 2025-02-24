@@ -33,6 +33,15 @@ async function getAlbum(req, res) {
     res.render("album", { title: album, albums: albums });
 }
 
+async function updateAlbumGet(req, res) {
+    const id = req.params.id;
+    const albums = await db.getAlbumByID(id);
+    res.render("createAlbum", {
+        title: "Editing" + albums.album,
+        album: albums.album,
+    });
+}
+
 async function updateAlbumPut(req, res) {
     const updateAlbum = {
         album: req.body.album,
@@ -74,6 +83,7 @@ module.exports = {
     getGenreAlbums,
     getArtistAlbums,
     getAlbum,
+    updateAlbumGet,
     updateAlbumPut,
     deleteAlbum,
     getCreatePage,

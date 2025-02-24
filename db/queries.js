@@ -1,7 +1,9 @@
 const pool = require("./pool");
 
 async function getAll() {
-    const { rows } = await pool.query("SELECT * FROM albums ORDER BY album");
+    const { rows } = await pool.query(
+        "SELECT * FROM albums ORDER BY album, artist"
+    );
     return rows;
 }
 
@@ -38,6 +40,13 @@ async function getArtist(artist) {
 async function getAlbum(album) {
     const { rows } = await pool.query("SELECT * FROM albums WHERE album = $1", [
         album,
+    ]);
+    return rows;
+}
+
+async function getAlbumByID(id) {
+    const { rows } = await pool.query("SELECT * FROM albums WHERE id = $1", [
+        id,
     ]);
     return rows;
 }
@@ -88,6 +97,7 @@ module.exports = {
     getArtists,
     getArtist,
     getAlbum,
+    getAlbumByID,
     updateAlbum,
     deleteAlbum,
     insertAlbum,

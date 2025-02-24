@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+    </head>
+    <body>
+        <header>Album Inventory <%= title %></header>
+        <nav>
+            <ul>
+                <li>Albums</li>
+                <li>Artists</li>
+                <li>Genres</li>
+            </ul>
+        </nav>
+        <div class="mainContainer">
+            <% albums.forEach(message => { %>
+            <div class="albumContainer">
+                <div class="coverContainer">
+                    <img
+                        src="<%= message.cover %>"
+                        alt="cover of the album, <%= message.album %>"
+                    />
+                </div>
+                <div class="albumName"><%= message.album %></div>
+                <div class="albumArtist"><%= message.artist %></div>
+                <div class="albumGenre"><%= message.genre %></div>
+            </div>
+            <% }); %>
+        </div>
+        <footer>
+            All copyrights are reserved to the artist and I do not own any of
+            the works.
+        </footer>
+    </body>
+</html>
