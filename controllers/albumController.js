@@ -7,38 +7,38 @@ async function getIndex(req, res) {
 
 async function getArtists(req, res) {
     const albums = await db.getArtists();
-    res.render("category", { title: "Artists", albums: albums });
+    res.render("index", { title: "Artists", albums: albums });
 }
 
 async function getGenres(req, res) {
     const albums = await db.getGenres();
-    res.render("category", { title: "Genres", albums: albums });
+    res.render("index", { title: "Genres", albums: albums });
 }
 
 async function getGenreAlbums(req, res) {
     const genre = req.params.genre;
     const albums = await db.getGenre(genre);
-    res.render("category", { title: genre, albums: albums });
+    res.render("index", { title: genre, albums: albums });
 }
 
 async function getArtistAlbums(req, res) {
     const artist = req.params.artist;
     const albums = await db.getArtist(artist);
-    res.render("category", { title: artist, albums: albums });
+    res.render("index", { title: artist, albums: albums });
 }
 
 async function getAlbum(req, res) {
     const album = req.params.album;
     const albums = await db.getAlbum(album);
-    res.render("album", { title: album, albums: albums });
+    res.render("album", { title: albums.album, albums: albums });
 }
 
 async function updateAlbumGet(req, res) {
-    const id = req.params.id;
-    const albums = await db.getAlbumByID(id);
+    const album = req.params.album;
+    const albums = await db.getAlbum(album);
     res.render("createAlbum", {
         title: "Editing" + albums.album,
-        album: albums.album,
+        albums: albums,
     });
 }
 
@@ -51,6 +51,7 @@ async function updateAlbumPut(req, res) {
         cover: req.body.cover,
     };
     await db.updateAlbum(updateAlbum);
+
     res.render("album", { title: updateAlbum.album, albums: updateAlbum });
 }
 
@@ -61,7 +62,7 @@ async function deleteAlbum(req, res) {
 }
 
 async function getCreatePage(req, res) {
-    res.render("createAlbum");
+    res.render("createAlbum", { title: "Create an Album" });
 }
 
 async function insertAlbumPost(req, res) {

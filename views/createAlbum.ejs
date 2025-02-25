@@ -6,25 +6,67 @@
         <title><%= title %></title>
     </head>
     <body>
-        <header>Album Inventory <%= title %></header>
+        <header>
+            <a href="/"> Album Inventory</a>
+        </header>
         <nav>
             <ul>
-                <li>Albums</li>
-                <li>Artists</li>
-                <li>Genres</li>
+                <li><a href="/">Albums</a></li>
+                <li><a href="/artists">Artists</a></li>
+                <li><a href="/genres">Genres</a></li>
             </ul>
         </nav>
         <div class="mainContainer">
-            <div class="albumCover">
-                <img
-                    src="<%= message.cover %>"
-                    alt="cover of the album, <%= message.album %>"
+            <% if(albums) { %>
+            <form action="/artists/:artist/:album" method="post">
+                <input type="hidden" name="_method" value="put" />
+                <label for="album">Album Name</label>
+                <input
+                    type="text"
+                    name="album"
+                    id="album"
+                    value="<%= albums.album %>"
                 />
-            </div>
-            <div class="name"><%= message.album %></div>
-            <div class="artist"><%= message.artist %></div>
-            <div class="genre"><%= message.genre %></div>
-            <div class="songs"><%= message.songs %></div>
+                <label for="artist">Artist</label>
+                <input
+                    type="text"
+                    name="artist"
+                    id="artist"
+                    value="<%= albums.artist %>"
+                />
+                <label for="genre">Genre</label>
+                <input
+                    type="text"
+                    name="genre"
+                    id="genre"
+                    value="<%= albums.genre %>"
+                />
+                <label for="songs">Album Songs</label>
+                <textarea name="songs" id="songs"><%= albums.songs %></textarea>
+                <label for="cover">Album Cover URL</label>
+                <input
+                    type="text"
+                    name="cover"
+                    id="cover"
+                    value="<%= albums.cover %>"
+                />
+                <button type="submit">Update</button>
+            </form>
+            <% } else { %>
+            <form action="/artists/:artist/:album" method="post">
+                <label for="album">Album Name</label>
+                <input type="text" name="album" id="album" />
+                <label for="artist">Artist</label>
+                <input type="text" name="artist" id="artist" />
+                <label for="genre">Genre</label>
+                <input type="text" name="genre" id="genre" />
+                <label for="songs">Album Songs</label>
+                <textarea name="songs" id="songs"></textarea>
+                <label for="cover">Album Cover URL</label>
+                <input type="text" name="cover" id="cover" />
+                <button type="submit">Create</button>
+            </form>
+            <% } %>
         </div>
         <footer>
             All copyrights are reserved to the artist and I do not own any of

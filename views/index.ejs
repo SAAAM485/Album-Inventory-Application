@@ -6,27 +6,38 @@
         <title><%= title %></title>
     </head>
     <body>
-        <header>Album Inventory <%= title %></header>
+        <header>
+            <a href="/">Album Inventory</a>
+        </header>
         <nav>
             <ul>
-                <li>Albums</li>
-                <li>Artists</li>
-                <li>Genres</li>
+                <li><a href="/">Albums</a></li>
+                <li><a href="/artists">Artists</a></li>
+                <li><a href="/genres">Genres</a></li>
             </ul>
         </nav>
         <div class="mainContainer">
-            <% albums.forEach(message => { %>
-            <div class="albumContainer">
+            <% albums.forEach(album => { %>
+            <a
+                href="/artists/<%= album.artist %>/<%= album.album %>"
+                class="albumContainer"
+            >
                 <div class="coverContainer">
                     <img
-                        src="<%= message.cover %>"
-                        alt="cover of the album, <%= message.album %>"
+                        src="<%= album.cover %>"
+                        alt="cover of the album, <%= album.album %>"
                     />
                 </div>
-                <div class="albumName"><%= message.album %></div>
-                <div class="albumArtist"><%= message.artist %></div>
-                <div class="albumGenre"><%= message.genre %></div>
-            </div>
+                <div class="albumName"><%= album.album %></div>
+                <div class="albumArtist">
+                    <a href="/artists/<%= album.artist %>"
+                        ><%= album.artist %></a
+                    >
+                </div>
+                <div class="albumGenre">
+                    <a href="/genres/<%= album.genre %>"><%= album.genre %></a>
+                </div>
+            </a>
             <% }); %>
         </div>
         <footer>

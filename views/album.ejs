@@ -6,25 +6,41 @@
         <title><%= title %></title>
     </head>
     <body>
-        <header>Album Inventory <%= title %></header>
+        <header>
+            <a href="/">Album Inventory</a>
+        </header>
         <nav>
             <ul>
-                <li>Albums</li>
-                <li>Artists</li>
-                <li>Genres</li>
+                <li><a href="/">Albums</a></li>
+                <li><a href="/artists">Artists</a></li>
+                <li><a href="/genres">Genres</a></li>
             </ul>
         </nav>
         <div class="mainContainer">
             <div class="coverContainer">
                 <img
-                    src="<%= message.cover %>"
-                    alt="cover of the album, <%= message.album %>"
+                    src="<%= albums.cover %>"
+                    alt="cover of the album, <%= albums.album %>"
                 />
             </div>
-            <div class="name"><%= message.album %></div>
-            <div class="artist"><%= message.artist %></div>
-            <div class="genre"><%= message.genre %></div>
-            <div class="songs"><%= message.songs %></div>
+            <div class="name"><%= albums.album %></div>
+            <div class="artist">
+                <a href="/artists/<%= albums.artist %>"><%= albums.artist %></a>
+            </div>
+            <div class="genre">
+                <a href="/genres/<%= albums.genre %>"><%= albums.genre %></a>
+            </div>
+            <div class="songs"><%= albums.songs %></div>
+            <a href="/artists/<%= albums.artist %>/update<%= albums.album>"
+                >Update Album</a
+            >
+            <form
+                action="/artists/<%= albums.artist %>/<%= albums.album %>?_method=DELETE"
+                method="POST"
+                style="display: inline"
+            >
+                <button type="submit">Delete Album</button>
+            </form>
         </div>
         <footer>
             All copyrights are reserved to the artist and I do not own any of

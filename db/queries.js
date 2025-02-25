@@ -9,14 +9,16 @@ async function getAll() {
 
 async function getGenres() {
     const { rows } = await pool.query(
-        "SELECT DISTINCT ON (genre) FROM albums ORDER BY genre"
+        `SELECT DISTINCT ON (genre) genre, album, artist, songs, cover 
+         FROM albums 
+         ORDER BY genre, album`
     );
     return rows;
 }
 
 async function getGenre(genre) {
     const { rows } = await pool.query(
-        "SELECT * FROM albums WHERE genre = $1  ORDER BY album",
+        "SELECT * FROM albums WHERE genre = $1 ORDER BY album",
         [genre]
     );
     return rows;
@@ -24,14 +26,16 @@ async function getGenre(genre) {
 
 async function getArtists() {
     const { rows } = await pool.query(
-        "SELECT DISTINCT ON (artist) FROM albums ORDER BY artist"
+        `SELECT DISTINCT ON (artist) artist, album, genre, songs, cover 
+         FROM albums 
+         ORDER BY artist, album`
     );
     return rows;
 }
 
 async function getArtist(artist) {
     const { rows } = await pool.query(
-        "SELECT * FROM albums WHERE artist = $1  ORDER BY album",
+        "SELECT * FROM albums WHERE artist = $1 ORDER BY album",
         [artist]
     );
     return rows;
@@ -41,14 +45,14 @@ async function getAlbum(album) {
     const { rows } = await pool.query("SELECT * FROM albums WHERE album = $1", [
         album,
     ]);
-    return rows;
+    return rows[0];
 }
 
 async function getAlbumByID(id) {
     const { rows } = await pool.query("SELECT * FROM albums WHERE id = $1", [
         id,
     ]);
-    return rows;
+    return rows[0];
 }
 
 async function updateAlbum(updateAlbum) {

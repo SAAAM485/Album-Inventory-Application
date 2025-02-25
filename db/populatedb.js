@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS albums (
 
 const SQL_CHECK_EXISTENCE = `
 SELECT COUNT(*) FROM albums
-WHERE album = $1 AND artist = $2 AND songs = $3;`;
+WHERE album = $1 AND genre = $2 AND artist = $3 AND songs = $4 AND cover = $5;`;
 
 const SQL_INSERT_ALBUM = `
 INSERT INTO albums (album, genre, artist, songs, cover)
@@ -95,10 +95,16 @@ const ALBUMS = [
 async function main() {
     console.log("Seeding...");
     const client = new Client({
-        connectionString: process.env.DATABASE_URL,
+        user: process.env.user,
+        host: process.env.host,
+        database: process.env.database,
+        password: process.env.password,
+        port: process.env.port,
         ssl: {
-            rejectUnauthorized: false,
+            rejectUnauthorized: true,
+            ca: process.env.sslrootcert, // 使用 .env 文件中的 SSL 憑證
         },
+        sslmode: process.env.sslmode, // 明確使用 .env 文件中的 sslmode 參數
     });
     await client.connect();
     await client.query(SQL_CREATE_TABLE);
