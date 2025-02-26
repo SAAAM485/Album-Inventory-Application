@@ -13,14 +13,16 @@ CREATE TABLE IF NOT EXISTS albums (
 
 const SQL_CHECK_EXISTENCE = `
 SELECT COUNT(*) FROM albums
-WHERE album = $1 AND genre = $2 AND artist = $3 AND songs = $4 AND cover = $5;`;
+WHERE id = $1;`; // 使用 id 來檢查存在性
 
 const SQL_INSERT_ALBUM = `
-INSERT INTO albums (album, genre, artist, songs, cover)
-VALUES ($1, $2, $3, $4, $5);`;
+INSERT INTO albums (id, album, genre, artist, songs, cover)
+VALUES ($1, $2, $3, $4, $5, $6)
+ON CONFLICT (id) DO NOTHING;`; // 使用 ON CONFLICT 保持唯一性
 
 const ALBUMS = [
     {
+        id: 1, // 添加 id 字段
         album: "Fluorescent",
         genre: "Metalcore",
         artist: "Life Awaits",
@@ -28,6 +30,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/813hEjAdUGL.jpg",
     },
     {
+        id: 2,
         album: "Call Me Insane",
         genre: "Metalcore",
         artist: "Life Awaits",
@@ -35,6 +38,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/719sqP-mjfL.jpg",
     },
     {
+        id: 3,
         album: "Awakened",
         genre: "Metalcore",
         artist: "As I Lay Dying",
@@ -42,6 +46,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/81+tASyeY0L.jpg",
     },
     {
+        id: 4,
         album: "Shaped By Fire",
         genre: "Metalcore",
         artist: "As I Lay Dying",
@@ -49,6 +54,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/91-d52XPVaL.jpg",
     },
     {
+        id: 5,
         album: "strobo",
         genre: "J-Pop",
         artist: "Vaundy",
@@ -56,6 +62,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/51mWn4317YL.jpg",
     },
     {
+        id: 6,
         album: "THE BOOK",
         genre: "J-Pop",
         artist: "YOASOBI",
@@ -63,6 +70,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/61d-OYJmHwL.jpg",
     },
     {
+        id: 7,
         album: "狂言",
         genre: "J-Pop",
         artist: "Ado",
@@ -70,6 +78,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/71oUVIRh9LL.jpg",
     },
     {
+        id: 8,
         album: "Ascendancy",
         genre: "Metalcore",
         artist: "Trivium",
@@ -77,6 +86,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/71dLrGCHF0L.jpg",
     },
     {
+        id: 9,
         album: "In Waves",
         genre: "Metalcore",
         artist: "Trivium",
@@ -84,6 +94,7 @@ const ALBUMS = [
         cover: "https://m.media-amazon.com/images/I/71gbzvz9rfL.jpg",
     },
     {
+        id: 10,
         album: "The Sin and the Sentence",
         genre: "Metalcore",
         artist: "Trivium",
@@ -110,15 +121,10 @@ async function main() {
     await client.query(SQL_CREATE_TABLE);
 
     for (const defaultAlbum of ALBUMS) {
-        const res = await client.query(SQL_CHECK_EXISTENCE, [
-            defaultAlbum.album,
-            defaultAlbum.genre,
-            defaultAlbum.artist,
-            defaultAlbum.songs,
-            defaultAlbum.cover,
-        ]);
+        const res = await client.query(SQL_CHECK_EXISTENCE, [defaultAlbum.id]);
         if (parseInt(res.rows[0].count, 10) === 0) {
             await client.query(SQL_INSERT_ALBUM, [
+                defaultAlbum.id,
                 defaultAlbum.album,
                 defaultAlbum.genre,
                 defaultAlbum.artist,

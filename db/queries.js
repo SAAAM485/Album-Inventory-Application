@@ -61,6 +61,18 @@ async function updateAlbum(updateAlbum) {
         if (!target) {
             throw new Error("Album not found");
         }
+
+        const isSameAlbum =
+            target.album === updateAlbum.album &&
+            target.genre === updateAlbum.genre &&
+            target.artist === updateAlbum.artist &&
+            target.songs === updateAlbum.songs &&
+            target.cover === updateAlbum.cover;
+
+        if (isSameAlbum) {
+            return;
+        }
+
         await pool.query(
             `
             UPDATE albums
