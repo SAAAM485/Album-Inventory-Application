@@ -56,29 +56,34 @@ async function getAlbumByID(id) {
 }
 
 async function updateAlbum(updateAlbum) {
-    const target = await getAlbum(updateAlbum.album);
-    if (target.length === 0) {
-        throw new Error("Album not found");
+    try {
+        const target = await getAlbumByID(updateAlbum.id);
+        if (!target) {
+            throw new Error("Album not found");
+        }
+        await pool.query(
+            `
+            UPDATE albums
+            SET album = $1, genre = $2, artist = $3, songs = $4, cover = $5
+            WHERE id = $6
+            `,
+            [
+                updateAlbum.album,
+                updateAlbum.genre,
+                updateAlbum.artist,
+                updateAlbum.songs,
+                updateAlbum.cover,
+                updateAlbum.id,
+            ]
+        );
+    } catch (error) {
+        console.error("Error updating album:", error);
+        throw error;
     }
-    await pool.query(
-        `
-        UPDATE albums
-        SET album = $1, genre = $2, artist = $3, songs = $4, cover = $5
-        WHERE id = $6
-    `,
-        [
-            updateAlbum.album,
-            updateAlbum.genre,
-            updateAlbum.artist,
-            updateAlbum.songs,
-            updateAlbum.cover,
-            updateAlbum.id,
-        ]
-    );
 }
 
-async function deleteAlbum(id) {
-    await pool.query("DELETE FROM albums WHERE id = $1", [id]);
+async function deleteAlbum(album) {
+    await pool.query("DELETE FROM albums WHERE album = $1", [album]);
 }
 
 async function insertAlbum(newAlbum) {

@@ -14,6 +14,7 @@
                 <li><a href="/">Albums</a></li>
                 <li><a href="/artists">Artists</a></li>
                 <li><a href="/genres">Genres</a></li>
+                <li><a href="/create">Create Album</a></li>
             </ul>
         </nav>
         <div class="mainContainer">
@@ -31,14 +32,16 @@
                 <a href="/genres/<%= albums.genre %>"><%= albums.genre %></a>
             </div>
             <div class="songs"><%= albums.songs %></div>
-            <a href="/artists/<%= albums.artist %>/update<%= albums.album>"
+            <a href="/artists/<%= albums.artist %>/update/<%= albums.album %>"
                 >Update Album</a
             >
+
             <form
                 action="/artists/<%= albums.artist %>/<%= albums.album %>?_method=DELETE"
                 method="POST"
                 style="display: inline"
             >
+                <input type="hidden" name="_method" value="DELETE" />
                 <button type="submit">Delete Album</button>
             </form>
         </div>

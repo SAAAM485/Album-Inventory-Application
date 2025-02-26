@@ -49,15 +49,21 @@ async function updateAlbumPut(req, res) {
         artist: req.body.artist,
         songs: req.body.songs,
         cover: req.body.cover,
+        id: req.body.id,
     };
-    await db.updateAlbum(updateAlbum);
-
-    res.render("album", { title: updateAlbum.album, albums: updateAlbum });
+    try {
+        await db.updateAlbum(updateAlbum);
+        res.render("album", { title: updateAlbum.album, albums: updateAlbum });
+    } catch (error) {
+        console.error("Error updating album:", error);
+        res.status(500).send("Internal Server Error");
+    }
 }
 
 async function deleteAlbum(req, res) {
-    const id = req.params.id;
-    await db.deleteAlbum(id);
+    const album = req.params.album;
+    console.log(album);
+    await db.deleteAlbum(album);
     res.redirect("/");
 }
 
