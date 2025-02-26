@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/style.css" />
         <title><%= title %></title>
     </head>
     <body>
@@ -17,37 +18,47 @@
                 <li><a href="/create">Create Album</a></li>
             </ul>
         </nav>
-        <div class="mainContainer">
+        <div class="albumMainContainer">
             <div class="coverContainer">
                 <img
                     src="<%= albums.cover %>"
                     alt="cover of the album, <%= albums.album %>"
                 />
             </div>
-            <div class="name"><%= albums.album %></div>
-            <div class="artist">
-                <a href="/artists/<%= albums.artist %>"><%= albums.artist %></a>
+            <div class="descriptions">
+                <div class="name"><%= albums.album %></div>
+                <div class="artist">
+                    <a href="/artists/<%= albums.artist %>"
+                        ><%= albums.artist %></a
+                    >
+                </div>
+                <div class="genre">
+                    <a href="/genres/<%= albums.genre %>"
+                        ><%= albums.genre %></a
+                    >
+                </div>
+                <div class="songs"><%= albums.songs %></div>
             </div>
-            <div class="genre">
-                <a href="/genres/<%= albums.genre %>"><%= albums.genre %></a>
-            </div>
-            <div class="songs"><%= albums.songs %></div>
-            <a href="/artists/<%= albums.artist %>/update/<%= albums.album %>"
-                >Update Album</a
-            >
+            <div class="options">
+                <a
+                    href="/artists/<%= albums.artist %>/update/<%= albums.album %>"
+                    >Update Album</a
+                >
 
-            <form
-                action="/artists/<%= albums.artist %>/<%= albums.album %>?_method=DELETE"
-                method="POST"
-                style="display: inline"
-            >
-                <input type="hidden" name="_method" value="DELETE" />
-                <button type="submit">Delete Album</button>
-            </form>
+                <form
+                    action="/artists/<%= albums.artist %>/<%= albums.album %>?_method=DELETE"
+                    method="POST"
+                    style="display: inline"
+                >
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button type="submit">Delete Album</button>
+                </form>
+            </div>
         </div>
+
         <footer>
-            All copyrights are reserved to the artist and I do not own any of
-            the works.
+            - All copyrights are reserved to the artists and I do not own any of
+            these works. -
         </footer>
     </body>
 </html>

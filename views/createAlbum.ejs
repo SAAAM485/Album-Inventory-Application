@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/style.css" />
         <title><%= title %></title>
     </head>
     <body>
@@ -17,7 +18,7 @@
                 <li><a href="/create">Create Album</a></li>
             </ul>
         </nav>
-        <div class="mainContainer">
+        <div class="formMainContainer">
             <% if(typeof albums !== 'undefined') { %>
             <form
                 action="/artists/<%= albums.artist %>/<%= albums.album %>?_method=PUT"
@@ -25,58 +26,64 @@
             >
                 <input type="hidden" name="_method" value="PUT" />
                 <input type="hidden" name="id" value="<%= albums.id %>" />
-                <label for="album">Album Name</label>
+                <label for="album">- Album Name</label>
                 <input
                     type="text"
                     name="album"
                     id="album"
                     value="<%= albums.album %>"
+                    required
                 />
-                <label for="artist">Artist</label>
+                <label for="artist">- Artist</label>
                 <input
                     type="text"
                     name="artist"
                     id="artist"
                     value="<%= albums.artist %>"
+                    required
                 />
-                <label for="genre">Genre</label>
+                <label for="genre">- Genre</label>
                 <input
                     type="text"
                     name="genre"
                     id="genre"
                     value="<%= albums.genre %>"
+                    required
                 />
-                <label for="songs">Album Songs</label>
-                <textarea name="songs" id="songs"><%= albums.songs %></textarea>
-                <label for="cover">Album Cover URL</label>
+                <label for="songs">- Album Songs</label>
+                <textarea name="songs" id="songs" required>
+<%= albums.songs %></textarea
+                >
+                <label for="cover">- Album Cover URL</label>
                 <input
                     type="text"
                     name="cover"
                     id="cover"
                     value="<%= albums.cover %>"
+                    required
                 />
                 <button type="submit">Update</button>
             </form>
 
             <% } else { %>
             <form action="/create" method="post">
-                <label for="album">Album Name</label>
-                <input type="text" name="album" id="album" />
-                <label for="artist">Artist</label>
-                <input type="text" name="artist" id="artist" />
-                <label for="genre">Genre</label>
-                <input type="text" name="genre" id="genre" />
-                <label for="songs">Album Songs</label>
-                <textarea name="songs" id="songs"></textarea>
-                <label for="cover">Album Cover URL</label>
-                <input type="text" name="cover" id="cover" />
+                <label for="album">- Album Name</label>
+                <input type="text" name="album" id="album" required />
+                <label for="artist">- Artist</label>
+                <input type="text" name="artist" id="artist" required />
+                <label for="genre">- Genre</label>
+                <input type="text" name="genre" id="genre" required />
+                <label for="songs">- Album Songs</label>
+                <textarea name="songs" id="songs" required></textarea>
+                <label for="cover">- Album Cover URL</label>
+                <input type="text" name="cover" id="cover" required />
                 <button type="submit">Create</button>
             </form>
             <% } %>
         </div>
         <footer>
-            All copyrights are reserved to the artist and I do not own any of
-            the works.
+            - All copyrights are reserved to the artists and I do not own any of
+            these works. -
         </footer>
     </body>
 </html>

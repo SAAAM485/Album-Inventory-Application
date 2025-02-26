@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles/style.css" />
         <title><%= title %></title>
     </head>
     <body>
@@ -19,31 +20,40 @@
         </nav>
         <div class="mainContainer">
             <% albums.forEach(album => { %>
-            <a
-                href="/artists/<%= album.artist %>/<%= album.album %>"
-                class="albumContainer"
-            >
-                <div class="coverContainer">
-                    <img
-                        src="<%= album.cover %>"
-                        alt="cover of the album, <%= album.album %>"
-                    />
+            <div class="albumContainer">
+                <a href="/artists/<%= album.artist %>/<%= album.album %>">
+                    <div class="coverContainer">
+                        <img
+                            src="<%= album.cover %>"
+                            alt="cover of the album, <%= album.album %>"
+                        />
+                    </div>
+                </a>
+                <div class="descriptions">
+                    <div class="albumName">
+                        <a
+                            href="/artists/<%= album.artist %>/<%= album.album %>"
+                            ><%= album.album %></a
+                        >
+                    </div>
+                    <div class="albumArtist">
+                        <a href="/artists/<%= album.artist %>"
+                            ><%= album.artist %></a
+                        >
+                    </div>
+                    <div class="albumGenre">
+                        <a href="/genres/<%= album.genre %>"
+                            ><%= album.genre %></a
+                        >
+                    </div>
                 </div>
-                <div class="albumName"><%= album.album %></div>
-                <div class="albumArtist">
-                    <a href="/artists/<%= album.artist %>"
-                        ><%= album.artist %></a
-                    >
-                </div>
-                <div class="albumGenre">
-                    <a href="/genres/<%= album.genre %>"><%= album.genre %></a>
-                </div>
-            </a>
+            </div>
+
             <% }); %>
         </div>
         <footer>
-            All copyrights are reserved to the artist and I do not own any of
-            the works.
+            - All copyrights are reserved to the artists and I do not own any of
+            these works. -
         </footer>
     </body>
 </html>
