@@ -93,7 +93,7 @@ nav ul li a:hover {
 .mainContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 50vh;
+    grid-auto-rows: 55vh;
     gap: 2rem;
 }
 

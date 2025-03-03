@@ -113,7 +113,7 @@ async function main() {
         port: process.env.port,
         ssl: {
             rejectUnauthorized: true,
-            ca: process.env.sslrootcert, // 使用 .env 文件中的 SSL 憑證
+            ca: process.env.sslrootcert.replace(/\\n/g, "\n"), // 使用 .env 文件中的 SSL 憑證
         },
         sslmode: process.env.sslmode, // 明確使用 .env 文件中的 sslmode 參數
     });
