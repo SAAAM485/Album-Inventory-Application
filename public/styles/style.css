@@ -279,3 +279,58 @@ footer {
     cursor: pointer;
     background-color: #ffffffde;
 }
+
+@media (max-width: 600px) {
+    .mainContainer {
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: 35rem;
+    }
+    nav ul li a {
+        font-size: 0.65rem;
+    }
+    .albumMainContainer {
+        width: 80%;
+    }
+    .albumMainContainer .coverContainer img {
+        width: 80%;
+    }
+
+    .albumMainContainer .descriptions div {
+        width: 80%;
+    }
+    .options {
+        width: 80%;
+    }
+    .formMainContainer {
+        width: 80%;
+    }
+    .formMainContainer form {
+        width: 100%;
+    }
+}
+
+@media (1200px >= width > 600px) {
+    .mainContainer {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 35rem;
+    }
+    .albumMainContainer {
+        width: 80%;
+    }
+    .albumMainContainer .coverContainer img {
+        width: 80%;
+    }
+
+    .albumMainContainer .descriptions div {
+        width: 80%;
+    }
+    .options {
+        width: 80%;
+    }
+    .formMainContainer {
+        width: 80%;
+    }
+    .formMainContainer form {
+        width: 100%;
+    }
+}
