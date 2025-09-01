@@ -91,4 +91,16 @@ The application will typically run on `http://localhost:3000` (or another port i
 *   **Add Album:** Look for a link or button to add a new album. Fill in the form and submit.
 *   **View Details:** Click on an album title to see its detailed information.
 
+## Screenshots
+
+### Desktop
+
+![Desktop Screenshot 1](images/dt0.png)
+![Desktop Screenshot 2](images/dt1.png)
+
+### Mobile
+
+![Mobile Screenshot 1](images/mb0.png)
+![Mobile Screenshot 2](images/mb1.png)
+
 ---
